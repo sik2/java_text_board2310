@@ -117,13 +117,20 @@ public class Main {
                 loginedMember = null;
                 System.out.println("로그아웃 처리가 되었습니다.");
             } else if (command.equals("등록")) {
+
+                if (loginedMember == null) {
+                    System.out.println("로그인 후 등록이 가능합니다.");
+                    continue;
+                }
+
+
                 lastId++;
                 System.out.printf("제목: ");
                 String title = sc.nextLine();
                 System.out.printf("내용: ");
                 String content = sc.nextLine();
 
-                Article article = new Article(lastId, title, content);
+                Article article = new Article(lastId, title, content, loginedMember.getUserId());
                 articleList.add(article);
 
                 System.out.println(lastId + "번 게시글이 등록되었습니다.");
@@ -131,10 +138,10 @@ public class Main {
                 if (articleList.size() == 0) {
                     System.out.println("게시물이 없습니다.");
                 } else {
-                    System.out.printf("번호 / 제목 / 내용\n");
+                    System.out.printf("번호 / 제목 / 내용 / 작성자 \n");
                     for (int i = 0; i < articleList.size(); i++) {
                         Article article = articleList.get(i);
-                        System.out.printf("%d / %s / %s\n", article.getId(), article.getTitle(), article.getContent());
+                        System.out.printf("%d / %s / %s / %s \n", article.getId(), article.getTitle(), article.getContent(), article.getUserId());
                     }
                 }
             } else if (command.equals("삭제")) {
