@@ -37,19 +37,13 @@ public class App {
                 while (true) {
                     System.out.printf("아이디) ");
                     userId = sc.nextLine();
-                    boolean duplicatedUserId = false;
 
-                    for (int i = 0; i < memberList.size(); i++) {
-                        if (memberList.get(i).getUserId().equals(userId)) {
-                            duplicatedUserId = true;
-                        }
-                    }
+                    Member member = this.getMemberFindByUserId(userId);
 
-                    if (duplicatedUserId) {
+                    if (member != null) {
                         System.out.println("존재하는 아이디 입니다.");
                         continue;
                     }
-
                     break;
                 }
 
@@ -79,23 +73,14 @@ public class App {
                     continue;
                 }
 
-                boolean checkedUserId = false;
-                Member member = null;
-
                 System.out.printf("아이디) ");
                 String userId = sc.nextLine();
                 System.out.printf("비번) ");
                 String password = sc.nextLine();
 
-                for (int i = 0; i < memberList.size(); i++) {
-                    if (memberList.get(i).getUserId().equals(userId)) {
-                        member = memberList.get(i);
-                        checkedUserId = true;
-                        break;
-                    }
-                }
+                Member member = this.getMemberFindByUserId(userId);
 
-                if (checkedUserId == false) {
+                if (member == null) {
                     System.out.println("해당 회원이 존재하지 않습니다.");
                     continue;
                 }
@@ -150,7 +135,7 @@ public class App {
                 long id = Long.parseLong(sc.nextLine());
 
                 // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
-                Article article = this.articleFindById(id);
+                Article article = this.getArticleFindById(id);
 
                 // 작성자만 작성할 수 있도록
                 // 게시글 존재하지 않을 경우
@@ -165,7 +150,7 @@ public class App {
                 long id = Long.parseLong(sc.nextLine());
 
                 // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
-                Article article = this.articleFindById(id);
+                Article article = this.getArticleFindById(id);
 
                 if (article == null) {
                     System.out.println("게시글이 존재하지 않습니다.");
@@ -189,11 +174,21 @@ public class App {
         System.out.println("== 프로그램 끝 ==");
     }
 
-    private Article articleFindById(long id) {
+    private Article getArticleFindById(long id) {
         for (int i = 0; i < articleList.size(); i++) {
             Article article = articleList.get(i);
             if (article.getId() == id) {
                 return article;
+            }
+        }
+        return null;
+    }
+
+    private Member getMemberFindByUserId(String userId) {
+        for (int i = 0; i < memberList.size(); i++) {
+            Member member = memberList.get(i);
+            if (member.getUserId().equals(userId)) {
+                return member;
             }
         }
         return null;
