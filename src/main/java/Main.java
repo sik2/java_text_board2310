@@ -12,6 +12,14 @@ public class Main {
         List<Member> memberList = new ArrayList<>();
         Member loginedMember = null;
         Scanner sc = new Scanner(System.in);
+        LocalDate now2 = LocalDate.now();
+
+        Member member1 = new Member(1, "user1", "1234", now2.toString());
+        memberList.add(member1);
+        Member member2 = new Member(2, "user2", "1234", now2.toString());
+        memberList.add(member2);
+        Member member3 = new Member(3, "user3", "1234", now2.toString());
+        memberList.add(member3);
 
         while (true) {
             System.out.printf("명령어) ");
@@ -98,7 +106,7 @@ public class Main {
 
                 loginedMember = member;
 
-                System.out.println("로그인 성공!" + loginedMember.getUserId() +"님 환영합니다.");
+                System.out.println("로그인 성공! " + loginedMember.getUserId() +" 님 환영합니다.");
             } else if (command.equals("로그아웃")) {
 
                 if (loginedMember == null) {
