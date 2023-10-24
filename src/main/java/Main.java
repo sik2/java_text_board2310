@@ -65,6 +65,11 @@ public class Main {
 
                 System.out.println(userId + "님 회원가입이 완료되었습니다.");
             } else if (command.equals("로그인")) {
+                if (loginedMember != null) {
+                    System.out.println("로그인이 되어 있습니다.");
+                    continue;
+                }
+
                 boolean checkedUserId = false;
                 Member member = null;
 
@@ -83,12 +88,12 @@ public class Main {
 
                 if (checkedUserId == false) {
                     System.out.println("해당 회원이 존재하지 않습니다.");
-                    return;
+                    continue;
                 }
 
                 if (member.getPassword().equals(password) == false) {
                     System.out.println("비밀번호가 일치하지 않습니다.");
-                    return;
+                    continue;
                 }
 
                 loginedMember = member;
