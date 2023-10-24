@@ -4,14 +4,15 @@ import java.util.List;
 import java.util.Scanner;
 
 public class App {
+    List<Article> articleList = new ArrayList<>();
+    List<Member> memberList = new ArrayList<>();
+    Member loginedMember = null;
+    Scanner sc = new Scanner(System.in);
+
     void run () {
         System.out.println("== 프로그램 시작 ==");
 
         long lastId = 0;
-        List<Article> articleList = new ArrayList<>();
-        List<Member> memberList = new ArrayList<>();
-        Member loginedMember = null;
-        Scanner sc = new Scanner(System.in);
         LocalDate now2 = LocalDate.now();
 
         Member member1 = new Member(1, "user1", "1234", now2.toString());
@@ -148,64 +149,53 @@ public class App {
                 System.out.printf("삭제 번호) ");
                 long id = Long.parseLong(sc.nextLine());
 
-                long foundIndex = -1;
+                // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
+                Article article = this.articleFindById(id);
 
-                boolean checkedAuthor = false;
-
-                for (int i = 0; i < articleList.size(); i++) {
-                    Article article = articleList.get(i);
-                    if (article.getId() == id) {
-                        foundIndex = id;
-                        if (article.getUserId() == loginedMember.userId) {
-                            checkedAuthor = true;
-                        }
-                        articleList.remove(article);
-                        break;
-                    }
-                }
-
-                if (checkedAuthor) {
-                    System.out.println("작성자만 삭제할 수 있습니다.");
+                // 작성자만 작성할 수 있도록
+                // 게시글 존재하지 않을 경우
+                if (article == null) {
+                    System.out.println("게시글이 존재하지 않습니다.");
                     continue;
                 }
 
-                if (foundIndex == -1) {
-                    System.out.println(id + "번째 게시물은 존재하지 않습니다.");
-                } else {
-                    System.out.println(id + "번째 게시글이 삭제 되었습니다.");
-                }
+                articleList.remove(article);
             } else if (command.equals("수정")) {
                 System.out.printf("수정 번호) ");
                 long id = Long.parseLong(sc.nextLine());
 
-                long foundIndex = -1;
+                // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
+                Article article = this.articleFindById(id);
 
-                for (int i = 0; i < articleList.size(); i++) {
-                    Article article = articleList.get(i);
-                    if (article.getId() == id) {
-                        foundIndex = id;
-
-                        System.out.printf("기존 제목: %s\n", article.getTitle());
-                        String title = sc.nextLine();
-                        article.setTitle(title);
-
-                        System.out.printf("기존 내용: %s\n", article.getContent());
-                        String content = sc.nextLine();
-                        article.setContent(content);
-
-                        break;
-                    }
+                if (article == null) {
+                    System.out.println("게시글이 존재하지 않습니다.");
+                    continue;
                 }
 
-                if (foundIndex == -1) {
-                    System.out.println(id + "번째 게시물은 존재하지 않습니다.");
-                } else {
-                    System.out.println(id + "번째 게시글이 수정 되었습니다.");
-                }
+                System.out.printf("기존 제목: %s\n", article.getTitle());
+                String title = sc.nextLine();
+                article.setTitle(title);
+
+                System.out.printf("기존 내용: %s\n", article.getContent());
+                String content = sc.nextLine();
+                article.setContent(content);
+
+                System.out.println(id + "번째 게시글이 수정 되었습니다.");
+
             }
         }
 
         sc.close();
         System.out.println("== 프로그램 끝 ==");
+    }
+
+    private Article articleFindById(long id) {
+        for (int i = 0; i < articleList.size(); i++) {
+            Article article = articleList.get(i);
+            if (article.getId() == id) {
+                return article;
+            }
+        }
+        return null;
     }
 }
