@@ -1,3 +1,5 @@
+import util.Util;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +15,12 @@ public class App {
         System.out.println("== 프로그램 시작 ==");
 
         long lastId = 0;
-        LocalDate now2 = LocalDate.now();
 
-        Member member1 = new Member(1, "user1", "1234", now2.toString());
+        Member member1 = new Member(1, "user1", "1234",  Util.nowDateTime());
         memberList.add(member1);
-        Member member2 = new Member(2, "user2", "1234", now2.toString());
+        Member member2 = new Member(2, "user2", "1234",  Util.nowDateTime());
         memberList.add(member2);
-        Member member3 = new Member(3, "user3", "1234", now2.toString());
+        Member member3 = new Member(3, "user3", "1234",  Util.nowDateTime());
         memberList.add(member3);
 
         while (true) {
@@ -61,9 +62,7 @@ public class App {
                     break;
                 }
 
-                LocalDate now = LocalDate.now();
-
-                Member member = new Member(userId, password, now.toString());
+                Member member = new Member(userId, password, Util.nowDateTime());
                 memberList.add(member);
 
                 System.out.println(userId + "님 회원가입이 완료되었습니다.");
