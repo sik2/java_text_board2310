@@ -13,7 +13,7 @@ public class Member {
     String password;
     String regDate;
 
-    Member(String userId, String password, String regDate) {
+    public Member(String userId, String password, String regDate) {
         this.userId = userId;
         this.password = password;
         this.regDate = regDate;
