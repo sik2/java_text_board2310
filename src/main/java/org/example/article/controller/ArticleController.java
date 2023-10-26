@@ -1,7 +1,7 @@
-package article.controller;
+package org.example.article.controller;
 
-import article.entity.Article;
-import article.entity.Member;
+import org.example.article.entity.Article;
+import org.example.article.entity.Member;
 
 import java.util.ArrayList;
 import java.util.List;

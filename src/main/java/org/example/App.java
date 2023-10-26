@@ -1,12 +1,10 @@
-import article.controller.ArticleController;
-import article.entity.Article;
-import article.entity.Member;
-import member.controller.MemberController;
-import system.controller.SystemController;
-import util.Util;
+package org.example;
 
-import java.util.ArrayList;
-import java.util.List;
+import org.example.article.controller.ArticleController;
+import org.example.article.entity.Member;
+import org.example.member.controller.MemberController;
+import org.example.system.controller.SystemController;
+
 import java.util.Scanner;
 
 public class App {

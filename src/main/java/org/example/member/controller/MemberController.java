@@ -1,6 +1,6 @@
-package member.controller;
+package org.example.member.controller;
 
-import article.entity.Member;
+import org.example.article.entity.Member;
 import util.Util;
 
 import java.util.ArrayList;
