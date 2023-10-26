@@ -1,3 +1,5 @@
+package article.entity;
+
 import lombok.*;
 
 @Getter
