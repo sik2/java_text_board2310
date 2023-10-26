@@ -1,3 +1,4 @@
+import system.controller.SystemController;
 import util.Util;
 
 import java.time.LocalDate;
@@ -12,6 +13,8 @@ public class App {
     Scanner sc = new Scanner(System.in);
 
     void run () {
+        SystemController systemController = new SystemController();
+
         System.out.println("== 프로그램 시작 ==");
 
         long lastId = 0;
@@ -29,7 +32,7 @@ public class App {
 
             switch (command) {
                 case "종료":
-                    System.out.println("시스템을 종료합니다.");
+                    systemController.exit();
                     return;
                 case "회원가입":
                     String userId;
