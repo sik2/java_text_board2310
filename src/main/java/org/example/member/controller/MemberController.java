@@ -1,20 +1,14 @@
 package org.example.member.controller;
 
 import org.example.Container;
-import org.example.article.entity.Member;
+import org.example.member.entity.Member;
 import util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class MemberController {
     List<Member> memberList = new ArrayList<>();
-    Member loginedMember;
-
-    public MemberController(Member loginedMember) {
-        this.loginedMember = loginedMember;
-    }
 
     public void init() {
         Member member1 = new Member(1, "user1", "1234",  Util.nowDateTime());
@@ -27,7 +21,7 @@ public class MemberController {
 
     public void login() {
 
-        if (loginedMember != null) {
+        if (Container.getLoginedMember() != null) {
             System.out.println("로그인이 되어 있습니다.");
             return;
         }
@@ -49,11 +43,9 @@ public class MemberController {
             return;
         }
 
-        loginedMember = member;
+        Container.setLoginedMember(member);
 
-        System.out.println("로그인 성공! " + loginedMember.getUserId() + " 님 환영합니다.");
-
-
+        System.out.println("로그인 성공! " + Container.getLoginedMember().getUserId() + " 님 환영합니다.");
     }
 
     public void join() {
@@ -95,12 +87,12 @@ public class MemberController {
     }
 
     public void logout() {
-        if (loginedMember == null) {
+        if (Container.getLoginedMember() == null) {
             System.out.println("로그인 상태가 아닙니다.");
             return;
         }
 
-        loginedMember = null;
+        Container.setLoginedMember(null);
         System.out.println("로그아웃 처리가 되었습니다.");
     }
 

@@ -1,19 +1,16 @@
 package org.example;
 
 import org.example.article.controller.ArticleController;
-import org.example.article.entity.Member;
 import org.example.member.controller.MemberController;
+import org.example.member.entity.Member;
 import org.example.system.controller.SystemController;
 
-import java.util.Scanner;
-
 public class App {
-    Member loginedMember = null;
 
     void run () {
         SystemController systemController = new SystemController();
-        ArticleController articleController = new ArticleController(loginedMember);
-        MemberController memberController = new MemberController(loginedMember);
+        ArticleController articleController = new ArticleController();
+        MemberController memberController = new MemberController();
 
         System.out.println("== 프로그램 시작 ==");
         memberController.init();

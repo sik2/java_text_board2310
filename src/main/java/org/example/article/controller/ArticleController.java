@@ -2,28 +2,20 @@ package org.example.article.controller;
 
 import org.example.Container;
 import org.example.article.entity.Article;
-import org.example.article.entity.Member;
+import org.example.member.entity.Member;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class ArticleController {
     List<Article> articleList = new ArrayList<>();
     long lastId = 0;
 
-    Member loginedMember;
-
-    public ArticleController (Member loginedMember) {
-        this.loginedMember = loginedMember;
-    }
-
     public void write() {
-        if (loginedMember == null) {
+        if (Container.getLoginedMember() == null) {
             System.out.println("로그인 후 등록이 가능합니다.");
             return;
         }
-
 
         lastId++;
         System.out.printf("제목: ");
@@ -31,7 +23,7 @@ public class ArticleController {
         System.out.printf("내용: ");
         String content = Container.getScanner().nextLine();
 
-        Article article = new Article(lastId, title, content, loginedMember.getUserId());
+        Article article = new Article(lastId, title, content, Container.getLoginedMember().getUserId());
         articleList.add(article);
 
         System.out.println(lastId + "번 게시글이 등록되었습니다.");
