@@ -1,5 +1,6 @@
 package org.example.article.controller;
 
+import org.example.Container;
 import org.example.article.entity.Article;
 import org.example.article.entity.Member;
 
@@ -11,11 +12,9 @@ public class ArticleController {
     List<Article> articleList = new ArrayList<>();
     long lastId = 0;
 
-    Scanner sc;
     Member loginedMember;
 
-    public ArticleController (Scanner sc, Member loginedMember) {
-        this.sc = sc;
+    public ArticleController (Member loginedMember) {
         this.loginedMember = loginedMember;
     }
 
@@ -28,9 +27,9 @@ public class ArticleController {
 
         lastId++;
         System.out.printf("제목: ");
-        String title = sc.nextLine();
+        String title = Container.getScanner().nextLine();
         System.out.printf("내용: ");
-        String content = sc.nextLine();
+        String content = Container.getScanner().nextLine();
 
         Article article = new Article(lastId, title, content, loginedMember.getUserId());
         articleList.add(article);
@@ -52,7 +51,7 @@ public class ArticleController {
 
     public void remove() {
         System.out.printf("삭제 번호) ");
-        long id = Long.parseLong(sc.nextLine());
+        long id = Long.parseLong(Container.getScanner().nextLine());
 
         // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
         Article article = this.getArticleFindById(id);
@@ -69,7 +68,7 @@ public class ArticleController {
 
     public void modify() {
         System.out.printf("수정 번호) ");
-        long id = Long.parseLong(sc.nextLine());
+        long id = Long.parseLong(Container.getScanner().nextLine());
 
         // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
         Article article = this.getArticleFindById(id);
@@ -80,11 +79,11 @@ public class ArticleController {
         }
 
         System.out.printf("기존 제목: %s\n", article.getTitle());
-        String title = sc.nextLine();
+        String title = Container.getScanner().nextLine();
         article.setTitle(title);
 
         System.out.printf("기존 내용: %s\n", article.getContent());
-        String content = sc.nextLine();
+        String content = Container.getScanner().nextLine();
         article.setContent(content);
 
         System.out.println(id + "번째 게시글이 수정 되었습니다.");

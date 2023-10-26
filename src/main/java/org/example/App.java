@@ -9,18 +9,17 @@ import java.util.Scanner;
 
 public class App {
     Member loginedMember = null;
-    Scanner sc = new Scanner(System.in);
 
     void run () {
         SystemController systemController = new SystemController();
-        ArticleController articleController = new ArticleController(sc, loginedMember);
-        MemberController memberController = new MemberController(sc, loginedMember);
+        ArticleController articleController = new ArticleController(loginedMember);
+        MemberController memberController = new MemberController(loginedMember);
 
         System.out.println("== 프로그램 시작 ==");
         memberController.init();
         while (true) {
             System.out.printf("명령어) ");
-            String command = sc.nextLine().trim();
+            String command = Container.getScanner().nextLine().trim();
 
             switch (command) {
                 case "종료":
@@ -49,7 +48,5 @@ public class App {
                     break;
             }
         }
-        sc.close();
-        System.out.println("== 프로그램 끝 ==");
     }
 }

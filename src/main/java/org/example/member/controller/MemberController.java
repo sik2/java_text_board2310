@@ -1,5 +1,6 @@
 package org.example.member.controller;
 
+import org.example.Container;
 import org.example.article.entity.Member;
 import util.Util;
 
@@ -9,12 +10,9 @@ import java.util.Scanner;
 
 public class MemberController {
     List<Member> memberList = new ArrayList<>();
-
-    Scanner sc;
     Member loginedMember;
 
-    public MemberController(Scanner sc, Member loginedMember) {
-        this.sc= sc;
+    public MemberController(Member loginedMember) {
         this.loginedMember = loginedMember;
     }
 
@@ -35,9 +33,9 @@ public class MemberController {
         }
 
         System.out.printf("아이디) ");
-        String userId = sc.nextLine();
+        String userId = Container.getScanner().nextLine();
         System.out.printf("비번) ");
-        String password = sc.nextLine();
+        String password = Container.getScanner().nextLine();
 
         Member member = this.getMemberFindByUserId(userId);
 
@@ -65,7 +63,7 @@ public class MemberController {
 
         while (true) {
             System.out.printf("아이디) ");
-            userId = sc.nextLine();
+            userId = Container.getScanner().nextLine();
 
             Member member = this.getMemberFindByUserId(userId);
 
@@ -78,10 +76,10 @@ public class MemberController {
 
         while (true) {
             System.out.printf("비번) ");
-            password = sc.nextLine();
+            password = Container.getScanner().nextLine();
 
             System.out.printf("비번 확인) ");
-            passwordConfirm = sc.nextLine();
+            passwordConfirm = Container.getScanner().nextLine();
 
             if (password.equals(passwordConfirm) == false) {
                 System.out.println("비밀번호가 일치하지 않습니다.");
