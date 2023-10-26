@@ -16,7 +16,7 @@ public class App {
 
     void run () {
         SystemController systemController = new SystemController();
-        ArticleController articleController = new ArticleController();
+        ArticleController articleController = new ArticleController(sc, loginedMember);
 
         System.out.println("== 프로그램 시작 ==");
 
@@ -109,16 +109,16 @@ public class App {
                     System.out.println("로그아웃 처리가 되었습니다.");
                     break;
                 case "등록":
-                    articleController.write(sc, loginedMember);
+                    articleController.write();
                     break;
                 case "목록":
-                    articleController.list(sc);
+                    articleController.list();
                     break;
                 case "삭제":
-                    articleController.remove(sc, loginedMember);
+                    articleController.remove();
                     break;
                 case "수정":
-                    articleController.modify(sc, loginedMember);
+                    articleController.modify();
                     break;
             }
         }

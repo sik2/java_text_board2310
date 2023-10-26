@@ -11,7 +11,15 @@ public class ArticleController {
     List<Article> articleList = new ArrayList<>();
     long lastId = 0;
 
-    public void write(Scanner sc, Member loginedMember) {
+    Scanner sc;
+    Member loginedMember;
+
+    public ArticleController (Scanner sc, Member loginedMember) {
+        this.sc = sc;
+        this.loginedMember = loginedMember;
+    }
+
+    public void write() {
         if (loginedMember == null) {
             System.out.println("로그인 후 등록이 가능합니다.");
             return;
@@ -30,7 +38,7 @@ public class ArticleController {
         System.out.println(lastId + "번 게시글이 등록되었습니다.");
     }
 
-    public void list(Scanner sc) {
+    public void list() {
         if (articleList.size() == 0) {
             System.out.println("게시물이 없습니다.");
         } else {
@@ -42,7 +50,7 @@ public class ArticleController {
         }
     }
 
-    public void remove(Scanner sc, Member loginedMember) {
+    public void remove() {
         System.out.printf("삭제 번호) ");
         long id = Long.parseLong(sc.nextLine());
 
@@ -59,7 +67,7 @@ public class ArticleController {
         articleList.remove(article);
     }
 
-    public void modify(Scanner sc, Member loginedMember) {
+    public void modify() {
         System.out.printf("수정 번호) ");
         long id = Long.parseLong(sc.nextLine());
 
