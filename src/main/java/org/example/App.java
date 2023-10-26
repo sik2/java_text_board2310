@@ -1,11 +1,15 @@
 package org.example;
 
 import org.example.article.controller.ArticleController;
+import org.example.db.DBConnection;
 import org.example.member.controller.MemberController;
 import org.example.member.entity.Member;
 import org.example.system.controller.SystemController;
 
 public class App {
+    public App () {
+        new DBConnection().connect();
+    }
 
     void run () {
         SystemController systemController = new SystemController();
