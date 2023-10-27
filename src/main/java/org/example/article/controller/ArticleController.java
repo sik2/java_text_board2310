@@ -2,14 +2,16 @@ package org.example.article.controller;
 
 import org.example.Container;
 import org.example.article.entity.Article;
+import org.example.article.service.ArticleService;
 import org.example.member.entity.Member;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleController {
-    List<Article> articleList = new ArrayList<>();
     long lastId = 0;
+
+    ArticleService articleService = new ArticleService();
 
     public void write() {
         if (Container.getLoginedMember() == null) {
@@ -23,13 +25,15 @@ public class ArticleController {
         System.out.printf("내용: ");
         String content = Container.getScanner().nextLine();
 
-        Article article = new Article(lastId, title, content, Container.getLoginedMember().getUserId());
-        articleList.add(article);
 
-        System.out.println(lastId + "번 게시글이 등록되었습니다.");
+        long id = articleService.create(lastId, title, content, Container.getLoginedMember().getUserId());
+
+        System.out.println(id + "번 게시글이 등록되었습니다.");
     }
 
     public void list() {
+        List<Article> articleList = articleService.getArticleListAll();
+
         if (articleList.size() == 0) {
             System.out.println("게시물이 없습니다.");
         } else {
@@ -45,8 +49,7 @@ public class ArticleController {
         System.out.printf("삭제 번호) ");
         long id = Long.parseLong(Container.getScanner().nextLine());
 
-        // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
-        Article article = this.getArticleFindById(id);
+        Article article = this.articleService.remove(id);
 
         // 작성자만 작성할 수 있도록
         // 게시글 존재하지 않을 경우
@@ -54,16 +57,13 @@ public class ArticleController {
             System.out.println("게시글이 존재하지 않습니다.");
             return;
         }
-
-        articleList.remove(article);
     }
 
     public void modify() {
         System.out.printf("수정 번호) ");
         long id = Long.parseLong(Container.getScanner().nextLine());
 
-        // aticleList 입력받은 id 값이랑 같은 id 를 가지고있는 article 객체 찾기
-        Article article = this.getArticleFindById(id);
+        Article article =  this.articleService.modify(id);
 
         if (article == null) {
             System.out.println("게시글이 존재하지 않습니다.");
@@ -79,15 +79,5 @@ public class ArticleController {
         article.setContent(content);
 
         System.out.println(id + "번째 게시글이 수정 되었습니다.");
-    }
-
-    private Article getArticleFindById(long id) {
-        for (int i = 0; i < articleList.size(); i++) {
-            Article article = articleList.get(i);
-            if (article.getId() == id) {
-                return article;
-            }
-        }
-        return null;
     }
 }

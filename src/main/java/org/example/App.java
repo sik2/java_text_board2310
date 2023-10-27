@@ -20,27 +20,6 @@ public class App {
         DBConnection.DB_PORT = 3306;
 
         Container.getDBconnection().connect();
-//        Container.getDBconnection().insert(
-//                "INSERT INTO article " +
-//                "SET id = 3,\n" +
-//                "title = \"test3\",\n" +
-//                "content = \"test3\",\n" +
-//                "memberId = 1,\n" +
-//                "regDate = now()");
-//        Container.getDBconnection().delete(
-//                "DELETE FROM article"
-//        );
-
-        StringBuilder sb = new StringBuilder();
-        sb.append(String.format("SELECT * FROM article"));
-
-        List<Article> articleList =  new ArrayList<>();
-
-        List<Map<String, Object>> rows = Container.getDBconnection().selectRows(sb.toString());
-
-        for (Map<String, Object> row : rows) {
-            System.out.println(row);
-        }
     }
 
     void run () {
