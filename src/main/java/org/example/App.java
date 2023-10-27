@@ -8,7 +8,12 @@ import org.example.system.controller.SystemController;
 
 public class App {
     public App () {
-        new DBConnection().connect();
+        DBConnection.DB_NAME = "proj1";
+        DBConnection.DB_USER = "root";
+        DBConnection.DB_PASSWORD = "";
+        DBConnection.DB_PORT = 3306;
+
+        Container.getDBconnection().connect();
     }
 
     void run () {
