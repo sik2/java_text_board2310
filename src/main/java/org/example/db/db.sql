@@ -17,3 +17,10 @@ CREATE TABLE `member` (
 	`password` char(100) NOT NULL,
 	regDate datetime NOT null
 );
+
+INSERT INTO article
+SET id = 3,
+title = "test3",
+content = "test3",
+memberId = 1,
+regDate = now();
