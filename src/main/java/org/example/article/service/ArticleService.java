@@ -7,10 +7,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleService {
+    long lastId = 0;
     List<Article> articleList = new ArrayList<>();
 
-
-    public long create(long lastId, String title, String content, String userId) {
+    public long create(String title, String content, String userId) {
+        lastId++;
         Article article = new Article(lastId, title, content, Container.getLoginedMember().getUserId());
         articleList.add(article);
 
@@ -21,15 +22,16 @@ public class ArticleService {
         return articleList;
     }
 
-    public Article remove(long id) {
-        return this.getArticleFindById(id);
+    public void remove(Article article) {
+        articleList.remove(article);
     }
 
-    public Article modify(long id) {
-        return this.getArticleFindById(id);
+    public void modify(Article article, String title, String content) {
+        article.setTitle(title);
+        article.setContent(content);
     }
 
-    private Article getArticleFindById(long id) {
+    public Article getArticleFindById(long id) {
         for (int i = 0; i < articleList.size(); i++) {
             Article article = articleList.get(i);
             if (article.getId() == id) {
