@@ -2,22 +2,15 @@ package org.example.member.controller;
 
 import org.example.Container;
 import org.example.member.entity.Member;
+import org.example.member.service.MemberService;
 import util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MemberController {
-    List<Member> memberList = new ArrayList<>();
 
-    public void init() {
-        Member member1 = new Member(1, "user1", "1234",  Util.nowDateTime());
-        memberList.add(member1);
-        Member member2 = new Member(2, "user2", "1234",  Util.nowDateTime());
-        memberList.add(member2);
-        Member member3 = new Member(3, "user3", "1234",  Util.nowDateTime());
-        memberList.add(member3);
-    }
+    MemberService memberService = new MemberService();
 
     public void login() {
 
@@ -31,7 +24,8 @@ public class MemberController {
         System.out.printf("비번) ");
         String password = Container.getScanner().nextLine();
 
-        Member member = this.getMemberFindByUserId(userId);
+
+        Member member = this.memberService.getMemberFindByUserId(userId);
 
         if (member == null) {
             System.out.println("해당 회원이 존재하지 않습니다.");
@@ -57,7 +51,7 @@ public class MemberController {
             System.out.printf("아이디) ");
             userId = Container.getScanner().nextLine();
 
-            Member member = this.getMemberFindByUserId(userId);
+            Member member = this.memberService.getMemberFindByUserId(userId);
 
             if (member != null) {
                 System.out.println("존재하는 아이디 입니다.");
@@ -80,8 +74,7 @@ public class MemberController {
             break;
         }
 
-        Member member = new Member(userId, password, Util.nowDateTime());
-        memberList.add(member);
+        this.memberService.join(userId, password);
 
         System.out.println(userId + "님 회원가입이 완료되었습니다.");
     }
@@ -95,16 +88,4 @@ public class MemberController {
         Container.setLoginedMember(null);
         System.out.println("로그아웃 처리가 되었습니다.");
     }
-
-    private Member getMemberFindByUserId(String userId) {
-        for (int i = 0; i < memberList.size(); i++) {
-            Member member = memberList.get(i);
-            if (member.getUserId().equals(userId)) {
-                return member;
-            }
-        }
-        return null;
-    }
-
-
 }

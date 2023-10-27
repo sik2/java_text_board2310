@@ -28,7 +28,7 @@ public class App {
         MemberController memberController = new MemberController();
 
         System.out.println("== 프로그램 시작 ==");
-        memberController.init();
+
         while (true) {
             System.out.printf("명령어) ");
             String command = Container.getScanner().nextLine().trim();
