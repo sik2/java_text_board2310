@@ -74,7 +74,11 @@ public class MemberController {
             break;
         }
 
-        this.memberService.join(userId, password);
+        try {
+            this.memberService.join(userId, password);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
         System.out.println(userId + "님 회원가입이 완료되었습니다.");
     }

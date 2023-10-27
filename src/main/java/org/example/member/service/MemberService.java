@@ -30,10 +30,8 @@ public class MemberService {
         return null;
     }
 
-    public String join(String userId, String password) {
+    public void join(String userId, String password) {
         Member member = new Member(userId, password, Util.nowDateTime());
         memberList.add(member);
-
-        return member.getUserId();
     }
 }
