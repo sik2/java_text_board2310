@@ -2,44 +2,31 @@ package org.example.article.service;
 
 import org.example.Container;
 import org.example.article.entity.Article;
+import org.example.article.repository.ArticleRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ArticleService {
-    long lastId = 0;
-    List<Article> articleList = new ArrayList<>();
+
+    ArticleRepository articleRepository = new ArticleRepository();
 
     public long create(String title, String content, String userId) {
-        lastId++;
-        Article article = new Article(lastId, title, content, Container.getLoginedMember().getUserId());
-        articleList.add(article);
-
-        return lastId;
+        return this.articleRepository.create(title, content, userId);
     }
 
     public List<Article> getArticleListAll() {
-        return articleList;
+        return this.articleRepository.getArticleListAll();
     }
 
     public void remove(Article article) {
-        articleList.remove(article);
+        this.articleRepository.remove(article);
     }
 
     public void modify(Article article, String title, String content) {
-        article.setTitle(title);
-        article.setContent(content);
+        this.articleRepository.modify(article, title, content);
     }
 
     public Article getArticleFindById(long id) {
-        for (int i = 0; i < articleList.size(); i++) {
-            Article article = articleList.get(i);
-            if (article.getId() == id) {
-                return article;
-            }
-        }
-        return null;
+        return this.articleRepository.getArticleFindById(id);
     }
-
-
 }
