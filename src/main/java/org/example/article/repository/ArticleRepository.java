@@ -2,13 +2,22 @@ package org.example.article.repository;
 
 import org.example.Container;
 import org.example.article.entity.Article;
+import org.example.db.DBConnection;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class ArticleRepository {
     long lastId = 0;
-    List<Article> articleList = new ArrayList<>();
+    private  List<Article> articleList;
+    private DBConnection dbConnection;
+
+    public ArticleRepository () {
+        dbConnection = Container.getDBconnection();
+        articleList = new ArrayList<>();
+    }
 
     public long create(String title, String content, String userId) {
         lastId++;
@@ -19,6 +28,16 @@ public class ArticleRepository {
     }
 
     public List<Article> getArticleListAll() {
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("SELECT * FROM article"));
+
+        List<Map<String, Object>> rows = dbConnection.selectRows(sb.toString());
+
+        for (Map<String, Object> row : rows) {
+            articleList.add(new Article(row));
+        }
+
         return articleList;
     }
 
