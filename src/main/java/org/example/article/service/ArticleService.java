@@ -10,8 +10,8 @@ public class ArticleService {
 
     ArticleRepository articleRepository = new ArticleRepository();
 
-    public long create(String title, String content, String userId) {
-        return this.articleRepository.create(title, content, userId);
+    public long create(String title, String content, int memberId, String regDate) {
+        return this.articleRepository.create(title, content, memberId, regDate);
     }
 
     public List<Article> getArticleListAll() {

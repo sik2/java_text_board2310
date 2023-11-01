@@ -3,6 +3,7 @@ package org.example.article.repository;
 import org.example.Container;
 import org.example.article.entity.Article;
 import org.example.db.DBConnection;
+import util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ArticleRepository {
-    long lastId = 0;
+    int lastId = 0;
     private  List<Article> articleList;
     private DBConnection dbConnection;
 
@@ -19,9 +20,9 @@ public class ArticleRepository {
         articleList = new ArrayList<>();
     }
 
-    public long create(String title, String content, String userId) {
+    public long create(String title, String content, int memberId, String regDate) {
         lastId++;
-        Article article = new Article(lastId, title, content, Container.getLoginedMember().getUserId());
+        Article article = new Article(lastId, title, content, memberId, regDate);
         articleList.add(article);
 
         return lastId;

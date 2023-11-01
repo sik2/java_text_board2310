@@ -4,6 +4,7 @@ import org.example.Container;
 import org.example.article.entity.Article;
 import org.example.article.service.ArticleService;
 import org.example.member.entity.Member;
+import util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ public class ArticleController {
         System.out.printf("내용: ");
         String content = Container.getScanner().nextLine();
 
-        long id = articleService.create(title, content, Container.getLoginedMember().getUserId());
+        long id = articleService.create(title, content, Container.getLoginedMember().getId(), Util.nowDateTime());
 
         System.out.println(id + "번 게시글이 등록되었습니다.");
     }
@@ -37,7 +38,7 @@ public class ArticleController {
             System.out.printf("번호 / 제목 / 내용 / 작성자 \n");
             for (int i = 0; i < articleList.size(); i++) {
                 Article article = articleList.get(i);
-                System.out.printf("%d / %s / %s / %s \n", article.getId(), article.getTitle(), article.getContent(), article.getUserId());
+                System.out.printf("%d / %s / %s / %s / %s \n", article.getId(), article.getTitle(), article.getContent(), article.getMemberId(), article.getRegDate());
             }
         }
     }

@@ -8,16 +8,18 @@ import java.util.Map;
 @Setter
 @AllArgsConstructor
 public class Article {
-    private long id;
+    private int id;
     private String title;
     private String content;
-    private String userId;
+    private int memberId;
+    private String regDate;
 
     public Article (Map<String, Object> row) {
-        this.id = 1; // 테스트 값
+        this.id = (int)row.get("id");
         this.title = (String) row.get("title");
         this.content = (String) row.get("content");
-        this.userId = "tester"; // 테스트 값
+        this.memberId = (int)row.get("memberId");
+        this.regDate = (String)row.get("regDate");
     }
 }
 
