@@ -7,6 +7,7 @@ import util.Util;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class MemberRepository {
     List<Member> memberList = new ArrayList<>();
@@ -18,6 +19,14 @@ public class MemberRepository {
 
 
     public Member getMemberFindByUserId(String userId) {
+
+        String sql = "SELECT * FROM `member`";
+        List<Map<String, Object>> rows = dbConnection.selectRows(sql);
+
+        for (Map<String, Object> row : rows) {
+            memberList.add(new Member(row));
+        }
+
         for (int i = 0; i < memberList.size(); i++) {
             Member member = memberList.get(i);
             if (member.getUserId().equals(userId)) {
