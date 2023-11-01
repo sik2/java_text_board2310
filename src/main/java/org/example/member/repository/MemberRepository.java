@@ -1,5 +1,7 @@
 package org.example.member.repository;
 
+import org.example.Container;
+import org.example.db.DBConnection;
 import org.example.member.entity.Member;
 import util.Util;
 
@@ -8,14 +10,10 @@ import java.util.List;
 
 public class MemberRepository {
     List<Member> memberList = new ArrayList<>();
+    private DBConnection dbConnection;
 
     public MemberRepository () {
-        Member member1 = new Member(1, "user1", "1234",  Util.nowDateTime());
-        memberList.add(member1);
-        Member member2 = new Member(2, "user2", "1234",  Util.nowDateTime());
-        memberList.add(member2);
-        Member member3 = new Member(3, "user3", "1234",  Util.nowDateTime());
-        memberList.add(member3);
+        dbConnection = Container.getDBconnection();
     }
 
 
@@ -30,7 +28,15 @@ public class MemberRepository {
     }
 
     public void join(String userId, String password) {
-        Member member = new Member(userId, password, Util.nowDateTime());
-        memberList.add(member);
+
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("INSERT INTO `member` "));
+        sb.append(String.format("SET regDate = now(), "));
+        sb.append(String.format("userid = '%s', ", userId));
+        sb.append(String.format("`password` = '%s' ", password));
+
+        int id = dbConnection.insert(sb.toString());
+
+        System.out.println(id + "번째 회원이 등록되었습니다.");
     }
 }
