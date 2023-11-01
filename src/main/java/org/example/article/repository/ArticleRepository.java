@@ -11,8 +11,7 @@ import java.util.Map;
 import java.util.Objects;
 
 public class ArticleRepository {
-    int lastId = 0;
-    private  List<Article> articleList;
+    private List<Article> articleList;
     private DBConnection dbConnection;
 
     public ArticleRepository () {
@@ -21,11 +20,17 @@ public class ArticleRepository {
     }
 
     public long create(String title, String content, int memberId, String regDate) {
-        lastId++;
-        Article article = new Article(lastId, title, content, memberId, regDate);
-        articleList.add(article);
 
-        return lastId;
+        StringBuilder sb = new StringBuilder();
+        sb.append(String.format("INSERT INTO article "));
+        sb.append(String.format("SET title = '%s', ", title));
+        sb.append(String.format("content = '%s', ", content));
+        sb.append(String.format("memberId = %s, ", memberId));
+        sb.append(String.format("regDate = now(); "));
+
+        int id = dbConnection.insert(sb.toString());
+
+        return id;
     }
 
     public List<Article> getArticleListAll() {
