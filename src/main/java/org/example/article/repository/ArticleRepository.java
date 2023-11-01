@@ -48,7 +48,14 @@ public class ArticleRepository {
     }
 
     public void remove(Article article) {
-        articleList.remove(article);
+        int id = article.getId();
+
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(String.format("DELETE FROM article "));
+        sb.append(String.format("WHERE id = %s", id));
+
+        System.out.println(dbConnection.delete(sb.toString()));
     }
 
     public void modify(Article article, String title, String content) {
