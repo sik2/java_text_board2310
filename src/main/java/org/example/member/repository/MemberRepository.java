@@ -10,15 +10,14 @@ import java.util.List;
 import java.util.Map;
 
 public class MemberRepository {
-    List<Member> memberList = new ArrayList<>();
     private DBConnection dbConnection;
 
     public MemberRepository () {
         dbConnection = Container.getDBconnection();
     }
 
-
     public Member getMemberFindByUserId(String userId) {
+        List<Member> memberList = new ArrayList<>();
 
         String sql = "SELECT * FROM `member`";
         List<Map<String, Object>> rows = dbConnection.selectRows(sql);

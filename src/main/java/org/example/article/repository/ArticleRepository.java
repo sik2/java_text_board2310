@@ -9,16 +9,13 @@ import java.util.List;
 import java.util.Map;
 
 public class ArticleRepository {
-    private List<Article> articleList;
     private DBConnection dbConnection;
 
     public ArticleRepository () {
         dbConnection = Container.getDBconnection();
-        articleList = new ArrayList<>();
     }
 
     public long create(String title, String content, int memberId, String regDate) {
-
         StringBuilder sb = new StringBuilder();
         sb.append(String.format("INSERT INTO article "));
         sb.append(String.format("SET title = '%s', ", title));
@@ -32,6 +29,8 @@ public class ArticleRepository {
     }
 
     public List<Article> getArticleListAll() {
+        List<Article> articleList = new ArrayList<>();
+
         StringBuilder sb = new StringBuilder();
 
         sb.append(String.format("SELECT * FROM article"));
@@ -70,6 +69,8 @@ public class ArticleRepository {
     }
 
     public Article getArticleFindById(long id) {
+        List<Article> articleList = this.getArticleListAll();
+
         for (int i = 0; i < articleList.size(); i++) {
             Article article = articleList.get(i);
             if (article.getId() == id) {
