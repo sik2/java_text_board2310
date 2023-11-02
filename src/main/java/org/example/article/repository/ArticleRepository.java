@@ -69,14 +69,29 @@ public class ArticleRepository {
     }
 
     public Article getArticleFindById(long id) {
-        List<Article> articleList = this.getArticleListAll();
+        StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < articleList.size(); i++) {
-            Article article = articleList.get(i);
-            if (article.getId() == id) {
-                return article;
-            }
-        }
-        return null;
+        sb.append(String.format("SELECT * "));
+        sb.append(String.format("FROM article "));
+        sb.append(String.format("WHERE id = %s ", id));
+
+
+        Map<String, Object> row = dbConnection.selectRow(sb.toString());
+
+        Article article = new Article(row);
+
+        return article;
     }
+
+//    public Article getArticleFindById(long id) {
+//        List<Article> articleList = this.getArticleListAll();
+//
+//        for (int i = 0; i < articleList.size(); i++) {
+//            Article article = articleList.get(i);
+//            if (article.getId() == id) {
+//                return article;
+//            }
+//        }
+//        return null;
+//    }
 }
